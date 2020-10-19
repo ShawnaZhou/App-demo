@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>本地网页</title>
+		<style type="text/css">
+			.btn {
+				display: block;
+				margin: 20px auto;
+				padding: 5px;
+				background-color: #007aff;
+				border: 0;
+				color: #ffffff;
+				height: 40px;
+				width: 200px;
+			}
+
+			.btn-red {
+				background-color: #dd524d;
+			}
+
+			.btn-yellow {
+				background-color: #f0ad4e;
+			}
+
+			.desc {
+				padding: 10px;
+				color: #999999;
+			}
+		</style>
+	</head>
+	<body>
+		
+		
+		<form action="http://139.196.58.222:8080/demo/queue/upload" enctype="multipart/form-data" method="POST">
+			<input name="title"  type="text" style="width: 100vw; margin-top: 10vh; height: 2.5rem; line-height: 2.5rem;" placeholder="请输入标题"/>
+			<input type="file" id="file" accept="image/png, image/jpeg, image/gif, image/jpg">
+			<label for="file" style="width:100vw;margin-top:5vw;text-align:center;">选择图片</label>
+			<img src="" id="show" width="100vw">
+			<div class="btn-list">
+				<button class="btn btn-red" type="submit" id="postMessage">上传</button>
+			</div>
+		</form>
+	
+		
+		<!-- uni 的 SDK -->
+		
+		<script>
+		
+		    function changepic(obj) {
+		
+		        //console.log(obj.files[0]);//这里可以获取上传文件的name
+		
+		        var newsrc=getObjectURL(obj.files[0]);
+		
+		        document.getElementById('show').src=newsrc;
+		
+		
+		    }
+		
+		    //建立一個可存取到該file的url
+		
+		    function getObjectURL(file) {
+		
+		        var url = null ;
+		
+		        // 下面函数执行的效果是一样的，只是需要针对不同的浏览器执行不同的 js 函数而已
+		
+		        if (window.createObjectURL!=undefined) { // basic
+		
+		            url = window.createObjectURL(file) ;
+		
+		        } else if (window.URL!=undefined) { // mozilla(firefox)
+		            url = window.URL.createObjectURL(file) ;
+		
+		        } else if (window.webkitURL!=undefined) { // webkit or chrome
+		
+		            url = window.webkitURL.createObjectURL(file) ;
+		
+		        }
+		
+		        return url ;
+		
+		    }
+		
+		</script>
+	</body>
+</html>

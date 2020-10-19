@@ -1,0 +1,168 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue",
+		"Am-(.*)": "@/components/Am-$1/index.vue" // 加入此行即可
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登陆",
+				"navigationBarBackgroundColor": "black",
+				"navigationBarTextStyle": "white"
+			}
+		},
+		{
+			"path": "pages/login/password",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "white",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		},
+
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": true
+				// "navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/center/index",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/upload/upload",
+			"style": {
+				"navigationBarTitleText": "发布",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/nearby/nearby",
+			"style": {
+				"navigationBarTitleText": "附近",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		}, {
+			"path": "pages/personal/personal",
+			"style": {
+				"navigationBarTitleText": "个人空间"
+			}
+		}, {
+			"path": "pages/sbscribe/sbscribe",
+			"style": {
+				"navigationBarTitleText": "关注"
+			}
+		}, {
+			"path": "pages/login/login-detail",
+			"style": {}
+		}, {
+			"path": "pages/scenery/scenery",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "white",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/sceneryDetail/sceneryDetail",
+			"style": {}
+		}, {
+			"path": "pages/upload1/upload1",
+			"style": {}
+		}, {
+			"path": "pages/upload2/upload2",
+			"style": {}
+		}, {
+			"path": "pages/message/message",
+			"style": {}
+		}, {
+			"path": "pages/mseeageDetail/mseeageDetail",
+			"style": {}
+		}, {
+			"path": "pages/followers/followers",
+			"style": {}
+		}, {
+			"path": "pages/fans/fans",
+			"style": {}
+		}, {
+			"path": "pages/upload3/upload3",
+			"style": {}
+		}, {
+			"path": "pages/smallScenery/smallScenery",
+			"style": {}
+		}, {
+			"path": "pages/sscenery/sscenery",
+			"style": {}
+		}, {
+			"path": "pages/personalInformation/personalInformation",
+			"style": {}
+		}, {
+			"path": "pages/search/search",
+			"style": {
+				"navigationStyle": "custom", // 隐藏系统导航栏
+				"navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+			}
+		}
+	    ,{
+            "path" : "pages/collect/collect",
+            "style" : {}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#fff",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#b1b3a9",
+		"selectedColor": "black",
+		"borderStyle": "white",
+		"backgroundColor": "#303133",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/index-.png",
+				"selectedIconPath": "static/index.png",
+				"text": "首页"
+			}, {
+				"pagePath": "pages/sbscribe/sbscribe",
+				"iconPath": "static/subscribe.png",
+				"selectedIconPath": "static/subscribe-.png",
+				"text": "关注"
+			},
+			{
+				"pagePath": "pages/upload/upload",
+				"iconPath": "static/add.png",
+				"selectedIconPath": "static/addactive.png"
+				// "text": "发布"
+			},
+			{
+				"pagePath": "pages/nearby/nearby",
+				"iconPath": "static/location-.png",
+				"selectedIconPath": "static/location.png",
+				"text": "附近"
+			},
+
+			{
+				"pagePath": "pages/center/index",
+				"iconPath": "static/mine-.png",
+				"selectedIconPath": "static/mine.png",
+				"text": "我的"
+			}
+		]
+	}
+}

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <style>
+        div{
+            margin-top: 2vh;
+            
+        }
+        label{
+            margin-left: 0.4rem;
+        }
+        input{
+            margin-left: 0.6rem;
+            line-height: 2rem;
+            border: none;
+            border-bottom: 1px solid black;
+            background-color: transparent;
+            padding: 0 0.4rem;
+        }
+        .ganyan2{
+            justify-content: end; float: right;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;font-size: larger; line-height: 10vh;font-weight: bold; letter-spacing: 0.4rem;">
+        江苏省中小学生健康体检用表
+    </div>
+    <div >
+        <form action="">
+            <div style="width: 70vw; margin-left: 15vw; text-align: center;">
+            <label for="xueXiaoMC">学校名称:</label>
+            <input id="xueXiaoMC" type="text">
+            <label for="nianji">年级:</label>
+            <input id="nianji" type="text">
+            <label for="banji">学校名称:</label>
+            <input id="banji" type="text">
+        </div>
+        <div style="text-align: center; margin-top: 2vh;">
+            <label style="margin-left: -105px;" for="sfzhm">身份证号码:</label>
+            <input style="min-width: 20vw; margin-left: 2vw;" id="sfzhm" type="text">
+        </div>
+        <div style="text-align: center; margin-top: 2vh;">
+            <label for="xsxm">学生姓名:</label>
+            <input id="xsxm" type="text">
+            性别:
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">男</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">女</label>
+            <label for="mz">民族:</label>
+            <input id="mz" type="text">
+        </div>
+        <div style="text-align: center; padding-bottom: 5vh;">
+            <label for="birthDate">出生日期</label>
+            <input id="birthDate" type="date">
+            <text style="margin-left: 1vw;">寄宿与否</text>
+            <input id="jisu" name="jisuyf" value="true" type="radio">
+            <label for="jisu">是</label>
+            <input id="fjisu" name="jisuyf" value="false" type="radio">
+            <label for="fjisu">否</label>
+        </div>
+        <hr>
+        <div style="background-color: #fcfcfc; padding-top: 50px; padding-bottom: 50px;" >
+            <h4 style="letter-spacing: 0.3rem; text-align: center;">
+                家长填写
+            </h3>
+           
+                <h5 style="text-align: center;">既往病史（打‘✔’）</h5>
+                <text style="line-height: 4rem; color: rgb(65, 62, 62);padding: 10vw;margin-left: 25vw;">
+                    疾病名称
+                </text>
+                
+                <text style="line-height: 4rem; color: rgb(65, 62, 62);padding: 10vw;">诊断日期</text>
+                <br>
+                <div style=" display: flex; flex-direction: column; text-align: left !important; justify-content: left; width: 30vw; margin-left: 35vw;">
+                <div>
+                <input type="checkbox" class="ganyan1" id="ganyan" name="ganyan" value="ganyan">
+                <label for="ganyan" class="ganyan1">肝炎</label>
+                <input type="date" class="ganyan2" id="ganyanDate">
+                </div>
+                <div>
+                <input type="checkbox" class="ganyan1" id="feijiehe" name="feijiehe" value="feijiehe">
+                <label for="feijiehe" class="ganyan1"> 肺结核</label>
+                <input type="date" class="ganyan2" id="fjhDate">
+                <br/>
+            </div>
+            <div>
+                <input type="checkbox" class="ganyan1" id="ywfjhjcs" name="ywfjhjcs" value="youwufeijiehejiechushi">
+                <label for="ywfjhjcs" class="ganyan1">有无肺结核密切接触史</label>
+                <input type="date" class="ganyan2" id="ywfjhjcsDate">
+                <br/>
+            </div>
+            <div>
+                <input type="checkbox" class="ganyan1" id="xtxxzb" name="xtxxzb" value="xiantianxingxzb">
+                <label for="xtxxzb"class="ganyan1">先天性心脏病</label>
+                <input type="date" class="ganyan2" id="xtxxzbDate">
+                <br/>
+            </div>
+            <div>
+                <input type="checkbox" class="ganyan1" id="shenyan" name="shenyan" value="shenyan">
+                <label for="shenyan" class="ganyan1">肾炎</label>
+                <input type="date" class="ganyan2" id="shenyanDate">
+                <br/>
+            </div>
+            <div>
+                <input type="checkbox" class="ganyan1" id="fsb" name="fsb" value="fsb">
+                <label for="fsb" class="ganyan1">风湿病</label>
+                <input type="date" class="ganyan2" id="fsbDate">
+                <br/>
+            </div>
+            <div>
+                <input type="checkbox" class="ganyan1" id="xiaochuan" name="xiaochuan" value="xiaochuan">
+                <label for="xiaochuan" class="ganyan1">哮喘</label>
+                <input type="date" class="ganyan2" id="xiaochuanDate">
+            </div>
+            </div>
+            <div  style="width: 30vw; margin-left: 35vw;">
+                <label for="qitbssm">其他病史说明</label>
+                <input type="text" id="qitbssm" style="width: 23vw;" name="qtbssm">
+            </div>
+            <div style="width: 30vw;margin-left: 35vw;text-align: center;margin-top: 4vh;">
+                <text style="line-height: 4rem; font-weight: bold;">残疾多选</text><br>
+                <input type="checkbox" id="shili1" name="shili1" value="true">
+                <label for="shili1">视力</label>
+                <input type="checkbox" id="tingli1" name="tingli1" value="true">
+                <label for="tingli1">听力</label>
+                <input type="checkbox" id="yanyu1" name="yanyu1" value="true">
+                <label for="yanyu1">言语</label>
+                <input type="checkbox" id="zhiti1" name="zhiti1" value="true">
+                <label for="zhiti1">肢体</label>
+                <input type="checkbox" id="zhili1" name="zhili1" value="true">
+                <label for="zhili1">智力</label>
+                <input type="checkbox" id="jinshen1" name="jinshen1" value="true">
+                <label for="jinshen1">精神</label>
+                <br>
+                <label for="qtcjsm">其他残疾说明：</label>
+                <input type="text" id="qtcjsm" name="qtcjsm" style="min-width: 280px; margin-top: 2vh;">
+            </div>
+            <div>
+                <h4 style="text-align: center;">
+                    一般
+                </h4>
+                <div style="width: 30vw; margin-left: 35vw; line-height: 2rem;">
+                    <label for="bodyHeight">身高</label>
+                    <input type="text" id="bodyHeight" name="bodyHeight">(cm)
+                    <label for="bodyWeight">体重</label>
+                    <input type="text" id="bodyWeight" name="bodyWeight">(kg)<br>
+                    <label for="shousy">收缩压</label>
+                    <input id="shousy" name="shousya" type="text">(mmHg)
+                    <label for="shuzy">舒张压</label>
+                    <input id="shuzy" name="shuzy" type="text">(mmHg)<br>
+                    <label style="color: grey;" for="yishiqianming">医师签名</label>
+                    <input id="yishiqianming" style="color: teal ;" name="yishiqianming" disabled>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div style="padding: 10px;">
+            <h4 style="text-align: center;">眼科</h4>
+            <div style="width: 30vw; margin-left: 35vw; text-align: center;">
+                <text>结膜</text>
+                <input type="radio" id="jiemonormal" name="jiemo" value="normal">
+                <label for="jiemonormal">正常</label>
+                <input type="radio" id="jiemoerror" name="jiemo" value="error">
+                <label for="jiemoerror">异常</label>
+                <text style="margin-left: 6rem;"> 角膜</text>
+                <input type="radio" id="jiaomonormal" name="jiaomo" value="normal">
+                <label for="jiaomonormal">正常</label>
+                <input type="radio" id="jiaomoerror" name="jiaomo" value="error">
+                <label for="jiaomoerror">异常</label>
+                <br>
+                <text style="margin-left: 0rem;"> 晶体</text>
+                <input type="radio" id="jingtinormal" name="jingti" value="normal">
+                <label for="jingtinormal">正常</label>
+                <input type="radio" id="jingtierror" name="jingti" value="error">
+                <label for="jingtierror">异常</label>
+                <text style="margin-left: 6rem;"> 瞳孔</text>
+                <input type="radio" id="tongkongnormal" name="tongkong" value="normal">
+                <label for="tongkongnormal">正常</label>
+                <input type="radio" id="tongkongerror" name="tongkong" value="error">
+                <label for="tongkongerror">异常</label>
+                <br>
+                <text style="margin-left: 0rem;"> 眼位</text>
+                <input type="radio" id="yanweinormal" name="yanwei" value="normal">
+                <label for="yanweinormal">正常</label>
+                <input type="radio" id="yanweierror" name="yanwei" value="error">
+                <label for="yanweierror">异常</label>
+                <text style="margin-left: 6rem;"> 眼球运动</text>
+                <input type="radio" id="yanqiunormal" name="yanqiu" value="normal">
+                <label for="yanqiunormal">正常</label>
+                <input type="radio" id="yanqiuerror" name="yanqiu" value="error">
+                <label for="yanqiuerror">异常</label>
+                <br>
+                <text style="line-height: 3rem;font-weight: bold; ">异常视觉行为</text><br>
+                <input id="yichangsshijuexw1" type="radio">
+                <label for="yichangsshijuexw1">无</label>
+                <input id="yichangsshijuexw2" type="radio">
+                <label for="yichangsshijuexw2">畏光</label>
+                <input id="yichangsshijuexw3" type="radio">
+                <label for="yichangsshijuexw3">眯眼</label>
+                <input id="yichangsshijuexw4" type="radio">
+                <label for="yichangsshijuexw4">歪头</label>
+                <input id="yichangsshijuexw5" type="radio">
+                <label for="yichangsshijuexw5">其它</label>
+            </div>
+        </div>
+        </form> 
+    </div>
+</body>
+</html>
