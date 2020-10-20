@@ -5,6 +5,9 @@
 				<view class="search-wrap">
 					<u-search v-model="keyword" show-action="true" height="56" @search="getData(keyword)" @custom="getData(keyword)" :action-style="{color: '#000'}"></u-search>
 				</view>
+				<view @click="moveToHot">
+					<image src="../../static/hot.png" style="width: 30px; height: 25px; margin-left:2vw"></image>
+				</view>
 			</view>
 		</u-navbar>
 		<view>
@@ -23,7 +26,6 @@
 										<u-avatar :src="item.profile.head_url" style="margin-left: 5vw;" mode="circle" @click="moveToPersonal(item.profile.id)"></u-avatar>
 										<text style="line-height: 2rem; margin-top: 0.1rem;margin-left: 2vw;">{{item.profile.nickName}}</text>
 									</view>
-							
 									<view class="card" @click="goDetail1(item.queue.id)" style="margin-top: 1vh;">
 										<image class="card-img" style="width: 100vw; height: 60vh;" :src="item.queue.content" mode="aspectFill"></image>
 										<view class="card-bottm row">
@@ -36,6 +38,7 @@
 									</view>
 								</view>
 							</block>
+							<u-loadmore :status="status" v-if="queue.length != 0"  />
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -53,6 +56,7 @@
 									</view>
 								</view>
 							</block>
+							<u-loadmore :status="status" v-if="view.length != 0"  />
 							</view>
 						</view>
 					</scroll-view>
@@ -80,6 +84,28 @@
 									</view>
 								</view>
 							</block> 
+							<u-loadmore :status="status" v-if="scenery.length != 0" />
+						</view>
+					</scroll-view>
+				</swiper-item>
+				<swiper-item class="swiper-item">
+					<scroll-view scroll-y style="height: 100%;width: 100%;">
+						<view class="page-box" style="min-height: 100%;">
+							<view v-if="user.length == 0"style="width: 100vw; text-align: center; margin: 50px 0;">暂无相关用户哦！</view>
+							<block class="blocks " v-for="(item,index) in user" :key="index">
+								<view class="blocks" style="background-color: #fbf8f8; padding-top: 20rpx; padding-bottom: 40rpx;">
+									<view style="display: flex; flex-direction: row;">
+										<u-avatar :src="item.head_url" style="margin-left: 5vw;" mode="circle" @click="moveToPersonal(item.userId)"></u-avatar>
+										<view style="display: flex;flex-direction: column;">
+										<text style="line-height: 1rem; margin-top: 0.1rem;margin-left: 2vw;">{{item.nickName}}
+										</text>
+										<text style="color: #606266;margin-left: 2vw;">{{item.bio}}</text>
+										</view>
+										<u-button plain="true" ripple-bg-color="#f3f3f3"  @click="subscribe(item.userId)" style="margin-left: 40vw; margin-top: 0.5vh;">关注</u-button>
+									</view>
+								</view>
+							</block>
+							<u-loadmore :status="status"  v-if="user.length != 0"/>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -95,12 +121,16 @@
 				queue: [],
 				view: [],
 				scenery: [],
+				user: [],
+				status: 'nomore',
 				list: [{
 					name: '发布'
 				}, {
 					name: '景区'
 				}, {
 					name: '小景'
+				}, {
+					name: '用户'
 				}],
 				current: 0,
 				swiperCurrent: 0,
@@ -127,6 +157,7 @@
 						console.log("res", res.data);
 						this.queue = res.data.queue;
 						this.view = res.data.view;
+						this.user = res.data.profile;
 						this.scenery = [];
 						for(var i = 0; i< this.queue.length; i++){
 							console.log("i",i);
@@ -161,6 +192,33 @@
 					}
 				});
 				console.log("URL!", e);
+			},
+			subscribe(e){
+				uni.request({
+					url: this.$serverUrl + '/followe',
+					method:'POST',
+					data:{
+						userId: e
+					},
+					success: (res) => {
+						uni.showToast({
+							icon:'none',
+							title:'关注成功'
+						});
+						console.log(e);
+						console.log("res", res.data);
+					}
+				})
+			},
+			moveToHot(){
+				uni.navigateTo({
+					url: '',
+				})
+			},
+			moveToPersonal(e) {
+				uni.navigateTo({
+					url: '../personal/personal?data=' + encodeURIComponent(JSON.stringify(e))
+				});
 			},
 			change(index) {
 				this.swiperCurrent = index;

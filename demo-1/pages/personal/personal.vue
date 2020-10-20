@@ -1,10 +1,10 @@
 <template>
 	<view>
-		<image :src="personalInfo.profile.head_url" style="position: absolute; width: 100vw; height: 25vh;z-index: -1;top: 0;left: 0;"></image>
+		<image :src="personalInfo.back.pic" mode="aspectFill" style="position: absolute; width: 100vw; height: 30vh;z-index: -1;top: 0;left: 0;"></image>
 		<view style="justify-content: center; display: flex;flex-direction: column;
 		width: 100vw; min-height: 30vh; z-index: 100;margin-top: 15vh;
 		">
-			<u-avatar :size="200" style="margin-left: 8vw;z-index: 1000;" :src="personalInfo.profile.head_url" v-if="true"></u-avatar>
+			<image :src="personalInfo.profile.head_url" style="width: 70px; height: 70px; border-radius: 50% 50%; border: 2px solid #cc2a36; margin-left: 5vw; margin-top: 2vh;"></image>
 			<text style="width: 100vw; height: 3vh; margin-left: 8vw; font-weight: 800;font-size: 1.3rem;">{{personalInfo.profile.nickName}}</text>
 			<text style="width: 100vw; height: 3vh; margin-left: 8vw; margin-top: 2vh;">{{personalInfo.profile.birthDay}}</text>
 			<text style="width: 100vw; height: 3vh; margin-left: 8vw;">{{personalInfo.profile.bio}}</text>

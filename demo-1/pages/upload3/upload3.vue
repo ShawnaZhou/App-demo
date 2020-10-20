@@ -5,13 +5,8 @@
 		<view class="uni-common-mt">
 			<form>
 				<view class="uni-list">
-
 					<u-input placeholder=" 请输入标题" style="line-height: 2rem; height: 2rem;" v-model="title"></u-input>
-
-
 				</view>
-
-
 				<view class="uni-list list-pd">
 					<view class="uni-list-cell cell-pd">
 						<view class="uni-uploader">

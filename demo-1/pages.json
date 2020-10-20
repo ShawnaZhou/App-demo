@@ -88,10 +88,15 @@
 			"style": {}
 		}, {
 			"path": "pages/message/message",
-			"style": {}
+			"style": {"navigationBarBackgroundColor": "#fafafa",
+			"enablePullDownRefresh": "true"
+			}
 		}, {
 			"path": "pages/mseeageDetail/mseeageDetail",
-			"style": {}
+			"style": {"navigationBarBackgroundColor": "#fafafa",
+			"navigationBarShadow": "grey",
+			"enablePullDownRefresh": true
+			}
 		}, {
 			"path": "pages/followers/followers",
 			"style": {}
@@ -121,6 +126,71 @@
             "path" : "pages/collect/collect",
             "style" : {}
         }
+        // ,{
+        //     "path" : "pages/photograph/photograph",
+        //     "style" : {}
+        // }
+        // ,{
+        //     "path" : "pages/lesson/lesson",
+        //     "style" : {}
+        // }
+        // ,{
+        //     "path" : "pages/authentication/authentication",
+        //     "style": {
+        //     	"navigationStyle": "custom", // 隐藏系统导航栏
+        //     	"navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+        //     }
+        // }
+        // ,{
+        //     "path" : "pages/activity/activity",
+        //     "style": {
+        //     	"navigationStyle": "custom", // 隐藏系统导航栏
+        //     	"navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+        //     }
+        // }
+        // ,{
+        //     "path" : "pages/collectview/collectview",
+        //     "style": {
+        //     	"navigationStyle": "custom", // 隐藏系统导航栏
+        //     	"navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+        //     }
+        // }
+        // ,{
+        //     "path" : "pages/activity2upload/activity2upload",
+        //     "style": {
+        //     	"navigationStyle": "custom", // 隐藏系统导航栏
+        //     	"navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+        //     }
+        // }
+   //      ,{
+   //          "path" : "pages/race/race",
+   //          "style": {
+   //          	"navigationStyle": "custom", // 隐藏系统导航栏
+   //          	"navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+   //          }
+   //      }
+   //      ,{
+   //          "path" : "pages/raceDetail/raceDetail",
+   //          "style" : {}
+   //      }
+   //      ,{
+   //          "path" : "pages/raceUpload/raceUpload",
+   //          "style" : {
+			// 	"navigationBarTitleText": "参与活动"
+			// }
+   //      }
+   //      ,{
+   //          "path" : "pages/tagdetail/tagdetail",
+   //          "style" : {}
+   //      }
+   //      ,{
+   //          "path" : "pages/money/money",
+   //          "style" : {"navigationBarTitleText": "我的钱包"}
+   //      }
+   //      ,{
+   //          "path" : "pages/minetopic/minetopic",
+   //          "style" : {"navigationBarTitleText": "我的钱包"}
+   //      }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

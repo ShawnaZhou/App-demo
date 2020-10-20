@@ -1,14 +1,23 @@
 <template>
 	<view>
-		<view class="u-flex user-box u-p-l-30 u-p-r-20 u-p-b-30">
+		<view class="u-flex-1" style="width: 100vw;">
+					<image :src="backImage" mode="aspectFill" style="width: 100vw; position: relative;" ></image>
+					<image  src="../../static/changeback.png" style="width: 45px; height: 45px; position: absolute; z-index: 1000; left: 80vw; top: 25vh;" @click="changeBackImage"></image>
+		</view>
+		<view class="u-flex user-box u-p-l-30 u-p-r-20 u-p-b-30" style="border-radius: 20px 20px; margin-top: 1vh; z-index: 1000; ">
 			<view class="u-m-r-10">
-				<u-avatar :src="head_url" size="140"></u-avatar>
+				<u-avatar :src="head_url" size="140" @click="moveToPersonal(userId)"></u-avatar>
 				<view style="width: 4rem; height: 1.5rem; background-color: #000000; color: white; text-align: center;border-radius: 5px 5px;"
 				@click="changeAvator"
 				>修改头像</view>
 			</view>
-			<view class="u-m-r-20"></view>
-			<view class="u-flex-1">
+			<view class="u-m-r-20" style="display: flex; flex-direction: column;">
+				<image v-if="level == 3" src="../../static/city.png" style="width: 25px; height: 25px;"></image>
+				<image v-if="level == 2" src="../../static/town.png" style="width: 25px; height: 25px;"></image>
+				<image v-if="level == 4" src="../../static/province.png" style="width: 25px; height: 25px;"></image>
+				 <image v-if="level == 6" src="../../static/controller.png" style="width: 25px; height: 25px;"></image> 
+			</view>
+			<view class="u-flex-2">
 				<view class="u-font-18 u-p-b-20">{{nickname}}</view>
 				<view class="u-font-14 u-tips-color">{{bio}}</view>
 				<view style="display: flex;flex-direction: row;">
@@ -34,24 +43,25 @@
 		
 		<view class="u-m-t-20">
 			<u-cell-group>
-				<u-cell-item icon="chat" title="通知" @click = "moveToMessage">
+				<u-cell-item icon="chat" title="私信" @click = "moveToMessage">
 				</u-cell-item>
 			</u-cell-group>
 		</view>
 		<view class="u-m-t-20">
 			<u-cell-group>
 				<u-cell-item icon="account" title="个人信息" @click="moveToPersonalInf(userId)"></u-cell-item>
-				<u-cell-item icon="photo" title="收藏" @click = moveToCollect></u-cell-item>
-				<u-cell-item icon="coupon" title="D"></u-cell-item>
-				<u-cell-item icon="heart" title="E"></u-cell-item>
+				<u-cell-item icon="photo" title="收藏" @click = "moveToCollect"></u-cell-item>
+				<u-cell-item icon="coupon" title="相册" @click = "moveToPhoto(userId)"></u-cell-item>
+				<u-cell-item icon="rmb-circle-fill" title="钱包" @click = "moveToMoner(userId)"></u-cell-item>
 			</u-cell-group>
 		</view>
 		
 		<view class="u-m-t-20">
 			<u-cell-group>
-				<u-cell-item icon="setting" title="设置"></u-cell-item>
+				<u-cell-item icon="setting" @click="moveToInvite" title="邀请码"></u-cell-item>
 			</u-cell-group>
 		</view>
+		<u-button style="margin-top: 2vh;" type="error" @click="logOut">退出登录</u-button>
 	</view>
 </template>
 
@@ -70,10 +80,13 @@
 				show:true,
 				fanscount: '',
 				followcount: '',
+				level: '',
+				backImage: '',
 				nowUser: ''
 			}
 		},
 		onLoad() {
+			this.getData();
 			var loginRes = this.checkLogin('../index/index', '2');
 						if(!loginRes){
 							return false;
@@ -124,6 +137,39 @@
 			moveToLevel(){
 				console.log("mpve1");
 			},
+			moveToPersonal(e) {
+				uni.navigateTo({
+					url: '../personal/personal?data=' + encodeURIComponent(JSON.stringify(e))
+				});
+			},
+			moveToPhoto(e){
+				uni.navigateTo({
+					url: '../photograph/photograph?data=' + e
+				});
+			},
+			moveToMoner(e){
+				uni.navigateTo({
+					url: '../money/money?data=' + e
+				});
+			},
+			changeBackImage(){
+				uni.chooseImage({
+				    success: (chooseImageRes) => {
+				        const tempFilePaths = chooseImageRes.tempFilePaths;
+				        uni.uploadFile({
+				            url: this.$serverUrl + '/back/', //仅为示例，非真实的接口地址
+				            filePath: tempFilePaths[0],
+				            name: 'file1',
+				            success: (uploadFileRes) => {
+								console.log("上传成功");
+				                console.log(uploadFileRes);
+				            },fail: (err) => {
+				            	console.log("failChangeBack",err);
+				            }
+				        });
+				    }
+				});
+			},
 			getData(){
 				uni.request({
 					url: this.$serverUrl + '/profile/' + this.userId,
@@ -132,6 +178,8 @@
 						console.log("url:", this.$serverUrl + '/profile/' + this.userId);
 						console.log("apple",res.data);
 						console.log("resPer:",res.data.rank);
+						this.backImage = res.data.back.pic;
+						this.level = res.data.curuser.level;
 						this.fanscount = res.data.fanscount;
 						this.followcount = res.data.followeecount;
 						this.nowUser = res.data.curuser.id;
@@ -140,7 +188,11 @@
 						this.nickname = res.data.profile.nickName;
 						this.bio = res.data.profile.bio;
 						console.log("score:",this.score);
-						if(this.score > 50 && this.score <= 100){
+						if(this.score <= 50){
+							this.levelImg = '../../static/qt.png';
+							this.score1 = this.score * 2;
+						}
+						else if(this.score > 50 && this.score <= 100){
 							this.levelImg = '../../static/qt.png';
 							this.score1 = (this.score - 50) * 2;
 						}
@@ -175,7 +227,7 @@
 						else{
 							this.score1 = this.score * 2;
 						}
-						console.log("score1:",this.score1.toInteger());
+						console.log("score1:",this.score1);
 					}
 				})
 			},
@@ -194,6 +246,30 @@
 				        });
 				    }
 				});
+			},
+			logOut(){
+				uni.showToast({
+					icon: 'loading'
+				});
+				uni.request({
+					url:this.$serverUrl + '/logout',
+					method:'POST',
+					success: (res) => {
+						uni.removeStorage({
+						    key: 'userinfo',
+						    success: function (res) {
+								uni.showToast({
+									title:'登出成功',
+									icon:'none'
+								});
+								console.log("logOutSuccess");
+								uni.redirectTo({
+									url: '../login/login'
+								})
+						    }
+						});
+					}
+				})
 			},
 			moveToFollow(e){
 				uni.navigateTo({
@@ -222,23 +298,24 @@
 				uni.navigateTo({
 					url: '../collect/collect'
 				})
-			}
+			},
+			moveToInvite(){
+				uni.navigateTo({
+					url: '../invite/invite'
+				})
+			},
+			moveToInvite(){
+				uni.navigateTo({
+					url: '../invite/invite'
+				})
+			},
 		}
 	}
 </script>
 
 <style lang="scss">
 page{
-	background-color: #ededed;
-}
-
-.camera{
-	width: 54px;
-	height: 44px;
-	
-	&:active{
-		background-color: #ededed;
-	}
+	// background-color: #ededed;
 }
 .user-box{
 	background-color: #fff;

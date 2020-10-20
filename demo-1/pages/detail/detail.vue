@@ -1,84 +1,109 @@
 <template>
 	<view class="index">
-				<u-toast ref="uToast" />
-			<view style="display: flex; flex-direction: column;">
-				<view style="display: flex;flex-direction: row;margin-top: 5vh; width: 100vw;">
-					<u-avatar :src="data.queueUser.head_url" v-if="data.code == 0" style="margin-left: 5vw;" :size="100" @click="moveToPersonal(item)"></u-avatar>
-					<text style="line-height: 15vw; margin-left: 5vw;width: 60vw;">{{data.nickName}}</text>
-					<u-icon name="trash-fill" size="40" color="black" style="margin-top:0;margin-right: 5vw; float: right;"
-						v-if="userId == data.queueUser.id" @click="deleteMain(data.hotqueue.id)"
-					></u-icon>
-				</view> 
-				<block v-for="item in imgList">
-				<image :src="item" v-if="true" style="width: 100vw; margin-top: 5vh; height: 60vh;" mode="aspectFill" ></image>
-				</block>
-				<view style="display: flex; flex-direction: row; width: 100vw; height: 10vh;">
-					<view class="download" v-if="data.flag == false" style="margin-left: 5vw; line-height: 5vh; width: 4em; text-align: center; background-color: #000000;color: white; height: 5vh; border-radius: 5px 5px; margin-top: 2.5vh;" @click="loveit">收藏</view>
-					<view class="download" v-else-if="data.flag == true" style="margin-left: 5vw; line-height: 5vh; width: 5em; text-align: center; background-color: #000000;color: white; height: 5vh; border-radius: 5px 5px; margin-top: 2.5vh;" @click="unloveit">已收藏</view>
-					<text style="line-height: 10vh; width: 5vw; margin-left: 40vw;" v-if="true">{{data.queueLikeCount}}</text>
-					<u-icon name="heart" size="40"  color="grey" @click="likeItMain" v-if="data.queueLikeStatus == 0"></u-icon>
-					<u-icon name="heart-fill" size="40"  color="red" @click="cancelLikeMain" v-if="data.queueLikeStatus == 1"></u-icon>
-					<text style="line-height: 10vh; width: 5vw;margin-left: 5vw;">{{data.hotqueue.commentCount}}</text>
-					<u-icon name="coupon-fill" size="40" color="black" @click="commentMain" v-if="data.queueLikeStatus == 0 || data.queueLikeStatus == 1"></u-icon>
-					<!-- <view style=" line-height: 5vh; width: 4em; text-align: center; background-color: #000000;color: white; height: 5vh; border-radius: 5px 5px; margin-top: 2.5vh;" @click="commentMain">评论</view> -->
+		<view style="display: flex; flex-direction: column;">
+			<view style="display: flex;flex-direction: row;margin-top: 5vh; width: 100vw;">
+				<u-avatar :src="data.queueUser.head_url" v-if="data.code == 0" style="margin-left: 5vw;" :size="100" @click="moveToPersonal(item)"></u-avatar>
+				<text style="line-height: 15vw; margin-left: 5vw;width: 60vw;">{{data.nickName}}</text>
+				<u-icon name="trash-fill" size="40" color="black" style="margin-top:0;margin-right: 5vw; float: right;" v-if="userId == data.queueUser.id"
+				 @click="deleteMain(data.hotqueue.id)"></u-icon>
+			</view>
+			<block v-for="item in imgList">
+				<image :src="item" v-if="true" style="width: 100vw; margin-top: 5vh; height: 60vh;" mode="aspectFill"></image>
+			</block>
+			<view>
+				<text style="margin-left: 5vw;font-size: large;font-weight: bold;">{{data.hotqueue.title}}</text>
+			</view>
+			<block v-for="(item,index) in tagList">
+				<view style="display: flex; flex-direction: row; margin-left: 5vw; margin-top: 2vh;">
+					<u-tag :text="item"  @click="moveToTag(item)"></u-tag>
 				</view>
-				<view style="width: 100vw; min-height: 9vh; background-color: #f0f5fe;" v-if="weatherComment==true">
-					<u-field
-								v-model="commentContent"
-								placeholder="请输入评论内容"
-								type="textarea"
-								label-width="0"
-							>
-							<u-button size="mini" slot="right" type="success" @tap="submitComment">发布</u-button>
-							</u-field>
-				</view>
-				<text style="line-height: 5vh;margin-left: 30vw;">发布时间：{{data.hotqueue.CreateDate}}</text>
-				<block v-for="item in data.comments" key= "item">
-					<view style="display: flex;flex-direction: column; width: 100vw; padding-bottom: 5vh;">
-						<view style="display: flex;flex-direction: row; margin-left: 5vw; width: 90vw;">
-						<u-avatar :src="item.user.head_url" size="80" style="margin-left: 0;" img-mode="circle"></u-avatar>
-						<text style="line-height: 100rpx; margin-left: 2vw; color: grey;">{{item.user.name}}</text>
+			</block>
+			<view style="display: flex; flex-direction: row; width: 100vw; height: 10vh;">
+				<view class="download" v-if="data.flag == false" style="margin-left: 5vw; line-height: 5vh; width: 4em; text-align: center; background-color: #000000;color: white; height: 5vh; border-radius: 5px 5px; margin-top: 2.5vh;"
+				 @click="loveit">收藏</view>
+				<view class="download" v-else-if="data.flag == true" style="margin-left: 5vw; line-height: 5vh; width: 5em; text-align: center; background-color: #000000;color: white; height: 5vh; border-radius: 5px 5px; margin-top: 2.5vh;"
+				 @click="unloveit">已收藏</view>
+				 
+				 
+				<text style="line-height: 10vh; width: 5vw; margin-left: 35vw;" v-if="true">{{data.queueLikeCount}}</text>
+				<u-icon name="heart" size="40" color="grey" @click="likeItMain" v-if="data.queueLikeStatus == 0"></u-icon>
+				<u-icon name="heart-fill" size="40" color="red" @click="cancelLikeMain" v-if="data.queueLikeStatus == 1"></u-icon>
+				<text style="line-height: 10vh; width: 5vw;margin-left: 3vw;">{{data.hotqueue.commentCount}}</text>
+				<u-icon name="coupon-fill" size="40" color="black" @click="commentMain" v-if="data.queueLikeStatus == 0 || data.queueLikeStatus == 1"></u-icon>
+				<text></text>
+				<image src="../../static/share.png" style="width: 20px; height: 20px; margin-top: 3.7vh;margin-left: 5vw;" @click="showModalN = true;"></image>
+				<view v-if="showModalN == true" style="position: fixed; top: 70vh; width: 100vw; height: 30vh; background-color: #f8f5ed;z-index: 10000;">
+				<!-- 	<u-button style="float: right;margin-right: 5vw;" >取消</u-button> -->
+					<image style="width: 20px; height: 20px;float: right;margin-right: 5vw; margin-top: 2vh;z-index: 10000;"@click="showModalN =false;" src="../../static/close.png"></image>
+					<view style="display: flex;flex-direction: row;margin-top: 2vh;">
+						<view style="display: flex;flex-direction: column;align-items: center;justify-content: center; width: 25vw; height: 15vh;" @click="shareToWechat">
+							<u-icon label="" size="60" name="weixin-fill"></u-icon>
+							<text>微信</text>
 						</view>
-						<view style="display: flex;flex-direction: column; width: 90vw; margin-left: 5vw; ">
-							<text style="margin-left: 90rpx;">{{item.comment.content}}</text>
-							<view style="display: flex; flex-direction: row; float: right;margin-top: 5vh;">
-								<text style="margin-left: 10vw;">发布日期：{{item._cretedate}}</text>
-								<text  style="margin-left: 5vw;">{{item.CommentlikeCount}}</text>
-								<u-icon name="heart" size="40" style="margin-left: 1vw;" color="grey" @click="likeComment(item.comment.id)" v-if="item.commentStatus == 0"></u-icon>
-								<u-icon name="heart-fill" size="40" color="red" @click="cancelLikeComment(item.comment.id)" v-else-if="item.commentStatus == 1"></u-icon>
-								<u-icon name="trash-fill" size="40" color="grey" style="margin-top: -0.3vh;margin-left: 1vw;"
-									v-if="item.com_nickName.userId == userId"
-									@click="deletComment(item.comment.id)"
-								></u-icon>
-						
-							</view>
+						<view style="display: flex;flex-direction: column;align-items: center;justify-content: center;width: 25vw; height: 15vh;"@click="shareToWechatFriend">
+							<u-icon label="" size="60" name="weixin-circle-fill"></u-icon>
+							<text>微信朋友圈</text>
 						</view>
 					</view>
-				</block>
+				</view>
+				<!-- <view style=" line-height: 5vh; width: 4em; text-align: center; background-color: #000000;color: white; height: 5vh; border-radius: 5px 5px; margin-top: 2.5vh;" @click="commentMain">评论</view> -->
 			</view>
+			<view style="width: 100vw; min-height: 9vh; background-color: #f0f5fe;" v-if="weatherComment==true">
+				<u-field v-model="commentContent" placeholder="请输入评论内容" type="textarea" label-width="0">
+					<u-button size="mini" slot="right" type="success" @tap="submitComment">发布</u-button>
+				</u-field>
+			</view>
+			<text style="line-height: 5vh;margin-left: 30vw;">发布时间：{{data.hotqueue.CreateDate}}</text>
+			<block v-for="item in data.comments">
+				<view style="display: flex;flex-direction: column; width: 100vw; padding-bottom: 5vh;">
+					<view style="display: flex;flex-direction: row; margin-left: 5vw; width: 90vw;">
+						<u-avatar :src="item.user.head_url" size="80" style="margin-left: 0;" img-mode="circle"></u-avatar>
+						<text style="line-height: 100rpx; margin-left: 2vw; color: grey;">{{item.com_nickName.nickName}}</text>
+					</view>
+					<view style="display: flex;flex-direction: column; width: 90vw; margin-left: 5vw; ">
+						<text style="margin-left: 90rpx;">{{item.comment.content}}</text>
+						<view style="display: flex; flex-direction: row; float: right;margin-top: 5vh;">
+							<text style="margin-left: 10vw;">发布日期：{{item._cretedate}}</text>
+							<text style="margin-left: 5vw;">{{item.CommentlikeCount}}</text>
+							<u-icon name="heart" size="40" style="margin-left: 1vw;" color="grey" @click="likeComment(item.comment.id)" v-if="item.commentStatus == 0"></u-icon>
+							<u-icon name="heart-fill" size="40" color="red" @click="cancelLikeComment(item.comment.id)" v-else-if="item.commentStatus == 1"></u-icon>
+							<u-icon name="trash-fill" size="40" color="grey" style="margin-top: -0.3vh;margin-left: 1vw;" v-if="item.com_nickName.userId == userId"
+							 @click="deletComment(item.comment.id)"></u-icon>
+
+						</view>
+					</view>
+				</view>
+			</block>
+		</view>
 	</view>
 </template>
 
 <script>
 	import FontAwesome from '@/components/Am-FontAwesome/index.vue'
+	import uToast from '../../uview-ui/components/u-toast/u-toast.vue'
 	export default {
+		components: {
+			uToast
+		},
 		data() {
 			return {
-				 components: {
-				        FontAwesome
-				    },
+				components: {
+					FontAwesome
+				},
 				commentContent: '',
 				weatherComment: false,
 				imgShow: false,
 				index: 0,
+				tagList: [],
 				showBtn: false,
 				screenHeight: 0,
 				imgLength: 0,
-				imgList:[],
+				imgList: [],
 				providerList: [],
 				data: [],
 				detailDec: "",
-				userId: ''
+				userId: '',
+				showModalN: false,
 			}
 		},
 		onLoad(e) {
@@ -187,43 +212,41 @@
 			}
 		},
 		methods: {
-			commentMain(){
+			commentMain() {
 				this.weatherComment = !this.weatherComment;
 			},
-			submitComment(){
-				if(this.commentContent == ''){
+			submitComment() {
+				if (this.commentContent == '') {
 					uni.showToast({
 						title: '请输入评论内容',
 						icon: 'none'
 					});
-				}
-				else{
-					console.log("comment:",JSON.stringify(this.commentContent) );
+				} else {
+					console.log("comment:", JSON.stringify(this.commentContent));
 					uni.request({
 						url: this.$serverUrl + '/comment/add',
 						method: 'POST',
-						data:{
+						data: {
 							content: this.commentContent,
 							questionId: this.data.hotqueue.id
 						},
 						success: (reg) => {
 							console.log(reg);
-							console.log("reg0:",reg.data);
+							console.log("reg0:", reg.data);
 							if (reg.data.code !== 0) {
 								uni.showModal({
 									content: '评论失败，失败原因：' + reg.data.msg,
 									showCancel: true
 								})
 								return;
-							}
-							else{
+							} else {
 								uni.showToast({
-									title:"评论成功！",
+									title: "评论成功！",
 									icon: 'success'
 								});
 							}
 							this.getData(this.detailDec);
-							console.log("data:",this.data);
+							console.log("data:", this.data);
 							this.commentContent = '';
 							this.weatherComment = false;
 						},
@@ -233,18 +256,57 @@
 								showCancel: false
 							});
 						}
-						
+
 					})
 				}
-				
 			},
-			deletComment(index){
+			moveToTag(item) {
+				uni.navigateTo({
+					url: '../tagdetail/tagdetail?data=' + item,
+				})
+			},
+			shareToWechat(){
+				console.log("show!!");
+				uni.share({
+				    provider: "weixin",
+				    scene: "WXSceneSession",
+				    type: 0,
+				    href: "http://www.jzpbuy.com/",
+				    title: "景志APP分享",
+				    summary: "我正在使用景志APP，赶紧跟我一起来体验！",
+				    imageUrl: this.imgList[0],
+				    success: function (res) {
+				        console.log("success:" + JSON.stringify(res));
+				    },
+				    fail: function (err) {
+				        console.log("fail:" + JSON.stringify(err));
+				    }
+				});
+			},
+			shareToWechatFriend(){
+				uni.share({
+				    provider: "weixin",
+				    scene: "WXSenceTimeline",
+				    type: 0,
+				    href: "http://www.jzpbuy.com/",
+				    title: "景志APP分享",
+				    summary: "我正在使用景志APP，赶紧跟我一起来体验！",
+				    imageUrl: this.imgList[0],
+				    success: function (res) {
+				        console.log("success:" + JSON.stringify(res));
+				    },
+				    fail: function (err) {
+				        console.log("fail:" + JSON.stringify(err));
+				    }
+				});
+			},
+			deletComment(index) {
 				console.log("delete!");
 				console.log(index);
 				uni.request({
 					url: this.$serverUrl + '/comment/',
 					method: 'DELETE',
-					data:{
+					data: {
 						commentId: index
 					},
 					success: (msg) => {
@@ -255,77 +317,9 @@
 							icon: "success"
 						});
 					},
-					
+
 				});
 			},
-			download() {
-				uni.downloadFile({
-					url: this.data.hotqueue.content,
-					success: (e) => {
-						uni.saveImageToPhotosAlbum({
-							filePath: e.tempFilePath,
-							success: () => {
-								uni.showToast({
-									icon: 'none',
-									title: '已保存到手机相册'
-								})
-							},
-							fail: () => {
-								uni.showToast({
-									icon: 'none',
-									title: '保存到手机相册失败'
-								})
-							}
-						});
-					},
-					fail: (e) => {
-						uni.showModal({
-							content: '下载失败，' + e.errMsg,
-							showCancel: false
-						})
-					}
-				})
-			},
-			//#ifdef APP-PLUS
-			setting() {
-				uni.showToast({
-					icon: 'none',
-					title: '正在设为壁纸'
-				})
-				setTimeout(() => {
-					var WallpaperManager = plus.android.importClass('android.app.WallpaperManager');
-					var Main = plus.android.runtimeMainActivity();
-					var wallpaperManager = WallpaperManager.getInstance(Main);
-					plus.android.importClass(wallpaperManager);
-					var BitmapFactory = plus.android.importClass('android.graphics.BitmapFactory');
-					uni.downloadFile({
-						url: this.data.hotqueue.content,
-						success: (e) => {
-							var filePath = plus.io.convertLocalFileSystemURL(e.tempFilePath);
-							var bitmap = BitmapFactory.decodeFile(filePath);
-							try {
-								wallpaperManager.setBitmap(bitmap);
-								uni.showToast({
-									icon: 'none',
-									title: '壁纸设置成功'
-								})
-							} catch (e) {
-								uni.showToast({
-									icon: 'none',
-									title: '壁纸设置失败'
-								})
-							}
-						},
-						fail: () => {
-							uni.showToast({
-								icon: 'none',
-								title: '壁纸设置失败'
-							})
-						}
-					})
-				}, 100)
-			},
-			//#endif
 			swpierChange(e) {
 				this.index = e.detail.current;
 				uni.setNavigationBarTitle({
@@ -349,12 +343,12 @@
 			},
 			getData(e) {
 				uni.request({
-					url: this.$serverUrl + '/queue/'+ e.data,
+					url: this.$serverUrl + '/queue/' + e.data,
 					method: 'GET',
 					success: (res) => {
 						console.log(e);
-						console.log("URL:",this.$serverUrl + '/queue/'+ e.data);
-						console.log("res0:",res);
+						console.log("URL:", this.$serverUrl + '/queue/' + e.data);
+						console.log("res0:", res);
 						if (res.data.code !== 0) {
 							uni.showModal({
 								content: '请求失败，失败原因：' + res.data.error,
@@ -363,10 +357,12 @@
 							return;
 						}
 						this.data = res.data;
-						console.log("data:",this.data);
+						console.log("data:", this.data);
 						this.imgList = this.data.hotqueue.content.split("\|");
 						this.imgList.pop();
-						console.log("imgs:",this.imglist);
+						console.log("imgs:", this.imglist);
+						this.tagList = res.data.hotqueue.tag.split('&@^');
+						console.log("tag", this.tagList);
 					},
 					fail: () => {
 						uni.showModal({
@@ -376,23 +372,23 @@
 					}
 				})
 			},
-			loveit(){
+			loveit() {
 				uni.request({
 					url: this.$serverUrl + '/collect',
 					method: 'POST',
-					data:{
+					data: {
 						hotqueueId: this.data.hotqueue.id
 					},
 					success: (res) => {
-						console.log("collecting",res.data);
-						if (res.data.code == 0){
+						console.log("collecting", res.data);
+						this.getData(this.detailDec);
+						if (res.data.code == 0) {
 							this.$refs.uToast.show({
 								title: '收藏成功',
 								type: 'success',
 							});
-							this.getData(this.detailDec);
-						}
-						else{
+
+						} else {
 							this.$refs.uToast.show({
 								title: '收藏失败',
 								type: 'error',
@@ -401,22 +397,23 @@
 					}
 				})
 			},
-			unloveit(){
+			unloveit() {
 				uni.request({
 					url: this.$serverUrl + '/uncollect',
 					method: 'POST',
-					data:{
+					data: {
 						hotqueueId: this.data.hotqueue.id
 					},
 					success: (res) => {
-						console.log("collecting",res.data);
-						if (res.data.code == 0){
+						console.log("collecting", res.data);
+						this.getData(this.detailDec);
+						if (res.data.code == 0) {
 							this.$refs.uToast.show({
 								title: '取消收藏成功',
 								type: 'warning',
 							});
 							this.getData(this.detailDec);
-						}else{
+						} else {
 							this.$refs.uToast.show({
 								title: '取消收藏失败',
 								type: 'error',
@@ -425,7 +422,7 @@
 					}
 				})
 			},
-			likeItMain(){
+			likeItMain() {
 				console.log(this.data.hotqueue.id);
 				uni.request({
 					url: this.$serverUrl + '/likeq',
@@ -433,86 +430,87 @@
 					data: {
 						queueId: this.data.hotqueue.id
 					},
-					success: (ret) =>{
-						console.log("likeUrl:",this.$serverUrl + '/likeq',this.data.hotqueue.id);
-						console.log("ret",ret);
-						if (ret.data.code !== 0){
+					success: (ret) => {
+						console.log("likeUrl:", this.$serverUrl + '/likeq', this.data.hotqueue.id);
+						console.log("ret", ret);
+						if (ret.data.code !== 0) {
 							this.$refs.uToast.show({
 								title: '点赞失败',
 								type: 'error',
 							})
-						}else{
+						} else {
 							this.getData(this.detailDec);
 							this.$refs.uToast.show({
 								title: '点赞成功',
 								type: 'success',
 							})
 						}
-					},fail: (err) => {
-						console.log("err",err);
+					},
+					fail: (err) => {
+						console.log("err", err);
 					}
 				})
 			},
-			cancelLikeMain(){
+			cancelLikeMain() {
 				console.log("取消点赞");
-				
-				console.log("status:",this.data.queueLikeStatus);
+
+				console.log("status:", this.data.queueLikeStatus);
 				uni.request({
 					url: this.$serverUrl + '/disLikeq',
 					method: 'POST',
 					data: {
 						queueId: this.data.hotqueue.id
 					},
-					success: (retd) =>{
-						console.log("retd",retd);
-						if (retd.data.code !== 0){
+					success: (retd) => {
+						console.log("retd", retd);
+						if (retd.data.code !== 0) {
 							this.$refs.uToast.show({
 								title: '取消点赞失败',
 								type: 'error',
 							})
-						}else{
+						} else {
 							this.getData(this.detailDec);
 							this.$refs.uToast.show({
 								title: '取消点赞成功',
 								type: 'success',
 							})
 						}
-					},fail: (errd) => {
-						console.log("errd",errd);
+					},
+					fail: (errd) => {
+						console.log("errd", errd);
 					}
 				})
 			},
-			deleteMain(e){
+			deleteMain(e) {
 				uni.request({
 					url: this.$serverUrl + '/queue',
 					method: 'DELETE',
-					data:{
+					data: {
 						id: e
 					},
 					success: (res) => {
-						console.log("e",e);
-						console.log("delete", res.data);
-						if(res.data.code == 0){
-							this.$refs.uToast.show({
-								title: '删除成功',
-								type: 'success',
-							})
-							uni.switchTab({
-								url: '../index/index'
-							})
-						}
+						uni.switchTab({
+							url: '../index/index'
+						});
+						this.$refs.uToast.show({
+							title: '删除成功',
+							type: 'success',
+							duration: 2000
+						});
+
+
 					}
 				})
 			},
-			likeComment(e){
+			likeComment(e) {
 				uni.request({
-					url: this.$serverUrl + '/likeco' ,
-					method:'POST',
-					data:{
+					url: this.$serverUrl + '/likeco',
+					method: 'POST',
+					data: {
 						commentId: e
 					},
 					success: (res) => {
-						console.log("successclick",res.data);
+						console.log("successclick", res.data);
 						this.getData(this.detailDec);
 						this.$refs.uToast.show({
 							title: '点赞成功',
@@ -521,15 +519,15 @@
 					}
 				})
 			},
-			cancelLikeComment(e){
+			cancelLikeComment(e) {
 				uni.request({
-					url: this.$serverUrl + '/disLikeco' ,
-					method:'POST',
-					data:{
+					url: this.$serverUrl + '/disLikeco',
+					method: 'POST',
+					data: {
 						commentId: e
 					},
 					success: (res) => {
-						console.log("successcancleclick",res.data);
+						console.log("successcancleclick", res.data);
 						this.getData(this.detailDec);
 						this.$refs.uToast.show({
 							title: '取消点赞成功',
@@ -543,7 +541,6 @@
 </script>
 
 <style lang="scss" scoped>
-
 	swiper {
 		flex: 1;
 		display: flex;
@@ -554,5 +551,4 @@
 		display: flex;
 		align-items: center;
 	}
-
 </style>

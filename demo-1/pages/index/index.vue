@@ -92,7 +92,6 @@
 										</view>
 									</view>
 								</block>
-								<text class="loadMore" style="text-align: center; width: 100vw;">已加载到底部</text>
 								<u-loadmore :status="status" v-if="view.length != 0"  />
 								</view>
 							</view>
