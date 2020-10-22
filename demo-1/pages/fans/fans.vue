@@ -7,9 +7,9 @@
 			<text v-if="list.length == 0"style="width: 90vw; margin-left: 5vw;font-size: 1.1rem;">当前暂无粉丝哦，请多发布些作品吧！</text>
 			<block v-for="item in list">
 				
-			<view style="display: flex; flex-direction: row;">
+			<view style="display: flex; flex-direction: row; padding-top: 0.5rem;">
 				<u-avatar  :src="item.user.head_url" style="margin-left: 5vw;"></u-avatar>
-				<text style="line-height: 50px; margin-left: 2vw; width: 40vw;">{{item.user.name}}</text>
+				<text style="line-height: 50px; margin-left: 2vw; width: 40vw;">{{item.profile.nickName}}</text>
 				<u-button plain="true" ripple-bg-color="#f3f3f3" v-if="item.isfollowed == false" @click="subscribe(item.user.id)" style="margin-left: 10vw;">关注</u-button>
 				<u-button plain="true" ripple-bg-color="#e31a1a" v-if="item.isfollowed == true" ripple="true" style="color: #894242; border: 2px solid #894242;" @click="disSubscribe(item.user.id)">取消关注</u-button>
 			</view>
@@ -56,7 +56,7 @@
 					url: this.$serverUrl + '/followe',
 					method:'POST',
 					data:{
-						userId: this.personalInfo.profile.userId
+						userId: e
 					},
 					success: (res) => {
 						uni.showToast({

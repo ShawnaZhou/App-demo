@@ -1,5 +1,6 @@
 <template>
 	<view class="content" :class="{'active':active}">
+		<u-toast ref="uToast" />
 		<image class="logo" :class="{'active':active}" src="../../static/upload.png"  mode="aspectFit"></image>
 		<view class="tabbar-box-wrap">
 			<view class="tabbar-box">

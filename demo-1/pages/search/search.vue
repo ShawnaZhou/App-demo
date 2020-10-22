@@ -6,7 +6,7 @@
 					<u-search v-model="keyword" show-action="true" height="56" @search="getData(keyword)" @custom="getData(keyword)" :action-style="{color: '#000'}"></u-search>
 				</view>
 				<view @click="moveToHot">
-					<image src="../../static/hot.png" style="width: 30px; height: 25px; margin-left:2vw"></image>
+					<image @click="moveToHot" src="../../static/hot.png" style="width: 2rem; height: 2rem; position:relative;left: 2vw;"></image>
 				</view>
 			</view>
 		</u-navbar>
@@ -212,7 +212,12 @@
 			},
 			moveToHot(){
 				uni.navigateTo({
-					url: '',
+					url: '../hot/hot',
+					success: (res) => {
+						console.log(res);
+					},fail: (err) => {
+						console.log("err",err);
+					}
 				})
 			},
 			moveToPersonal(e) {

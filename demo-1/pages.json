@@ -95,7 +95,7 @@
 			"path": "pages/mseeageDetail/mseeageDetail",
 			"style": {"navigationBarBackgroundColor": "#fafafa",
 			"navigationBarShadow": "grey",
-			"enablePullDownRefresh": true
+			  "enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/followers/followers",
@@ -134,13 +134,17 @@
         //     "path" : "pages/lesson/lesson",
         //     "style" : {}
         // }
-        // ,{
-        //     "path" : "pages/authentication/authentication",
-        //     "style": {
-        //     	"navigationStyle": "custom", // 隐藏系统导航栏
-        //     	"navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
-        //     }
-        // }
+		,{
+		     "path" : "pages/hot/hot",
+		     "style" : {}
+		 }
+        ,{
+            "path" : "pages/authentication/authentication",
+            "style": {
+            	"navigationStyle": "custom", // 隐藏系统导航栏
+            	"navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+            }
+        }
         // ,{
         //     "path" : "pages/activity/activity",
         //     "style": {
@@ -191,6 +195,15 @@
    //          "path" : "pages/minetopic/minetopic",
    //          "style" : {"navigationBarTitleText": "我的钱包"}
    //      }
+        ,{
+            "path" : "pages/authentication2/authentication2",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

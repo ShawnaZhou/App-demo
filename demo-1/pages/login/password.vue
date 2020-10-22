@@ -74,9 +74,7 @@
 							icon: 'none',
 							title: '登录成功'
 						});
-						
 						let data = res.data;
-						console.log("返回数据状态2:" + data['pro']['bio']);
 						uni.setStorage({
 							key: 'userinfo',
 							data: {
@@ -98,7 +96,6 @@
 							 	console.log("存储失败！");
 							 }
 						});
-						
 						uni.switchTab({
 						    url: '/pages/index/index'
 						});

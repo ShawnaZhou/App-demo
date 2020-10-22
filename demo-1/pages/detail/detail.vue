@@ -2,7 +2,7 @@
 	<view class="index">
 		<view style="display: flex; flex-direction: column;">
 			<view style="display: flex;flex-direction: row;margin-top: 5vh; width: 100vw;">
-				<u-avatar :src="data.queueUser.head_url" v-if="data.code == 0" style="margin-left: 5vw;" :size="100" @click="moveToPersonal(item)"></u-avatar>
+				<u-avatar :src="data.queueUser.head_url" v-if="data.code == 0" style="margin-left: 5vw;" :size="100" @click="moveToPersonal(data.queueUser.id)"></u-avatar>
 				<text style="line-height: 15vw; margin-left: 5vw;width: 60vw;">{{data.nickName}}</text>
 				<u-icon name="trash-fill" size="40" color="black" style="margin-top:0;margin-right: 5vw; float: right;" v-if="userId == data.queueUser.id"
 				 @click="deleteMain(data.hotqueue.id)"></u-icon>
@@ -23,8 +23,6 @@
 				 @click="loveit">收藏</view>
 				<view class="download" v-else-if="data.flag == true" style="margin-left: 5vw; line-height: 5vh; width: 5em; text-align: center; background-color: #000000;color: white; height: 5vh; border-radius: 5px 5px; margin-top: 2.5vh;"
 				 @click="unloveit">已收藏</view>
-				 
-				 
 				<text style="line-height: 10vh; width: 5vw; margin-left: 35vw;" v-if="true">{{data.queueLikeCount}}</text>
 				<u-icon name="heart" size="40" color="grey" @click="likeItMain" v-if="data.queueLikeStatus == 0"></u-icon>
 				<u-icon name="heart-fill" size="40" color="red" @click="cancelLikeMain" v-if="data.queueLikeStatus == 1"></u-icon>
@@ -33,7 +31,6 @@
 				<text></text>
 				<image src="../../static/share.png" style="width: 20px; height: 20px; margin-top: 3.7vh;margin-left: 5vw;" @click="showModalN = true;"></image>
 				<view v-if="showModalN == true" style="position: fixed; top: 70vh; width: 100vw; height: 30vh; background-color: #f8f5ed;z-index: 10000;">
-				<!-- 	<u-button style="float: right;margin-right: 5vw;" >取消</u-button> -->
 					<image style="width: 20px; height: 20px;float: right;margin-right: 5vw; margin-top: 2vh;z-index: 10000;"@click="showModalN =false;" src="../../static/close.png"></image>
 					<view style="display: flex;flex-direction: row;margin-top: 2vh;">
 						<view style="display: flex;flex-direction: column;align-items: center;justify-content: center; width: 25vw; height: 15vh;" @click="shareToWechat">
@@ -56,7 +53,7 @@
 			<text style="line-height: 5vh;margin-left: 30vw;">发布时间：{{data.hotqueue.CreateDate}}</text>
 			<block v-for="item in data.comments">
 				<view style="display: flex;flex-direction: column; width: 100vw; padding-bottom: 5vh;">
-					<view style="display: flex;flex-direction: row; margin-left: 5vw; width: 90vw;">
+					<view style="display: flex;flex-direction: row; margin-left: 5vw; width: 90vw;"@click="moveToPersonal(item.comment.userId)">
 						<u-avatar :src="item.user.head_url" size="80" style="margin-left: 0;" img-mode="circle"></u-avatar>
 						<text style="line-height: 100rpx; margin-left: 2vw; color: grey;">{{item.com_nickName.nickName}}</text>
 					</view>
@@ -348,7 +345,7 @@
 					success: (res) => {
 						console.log(e);
 						console.log("URL:", this.$serverUrl + '/queue/' + e.data);
-						console.log("res0:", res);
+						console.log("res0:", res.data);
 						if (res.data.code !== 0) {
 							uni.showModal({
 								content: '请求失败，失败原因：' + res.data.error,
@@ -535,7 +532,12 @@
 						})
 					}
 				})
-			}
+			},
+			moveToPersonal(e) {
+				uni.navigateTo({
+					url: '../personal/personal?data=' + encodeURIComponent(JSON.stringify(e))
+				});
+			},
 		}
 	}
 </script>

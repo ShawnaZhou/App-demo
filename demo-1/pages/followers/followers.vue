@@ -8,7 +8,7 @@
 			<block v-for="item in list">
 			<view style="display: flex; flex-direction: row; margin-top: 1vh;">
 				<u-avatar  :src="item.user.head_url" style="margin-left: 5vw;" @click="moveToPersonal(item.user.id)"></u-avatar>
-				<text style="line-height: 50px; margin-left: 2vw; width: 40vw;">{{item.user.name}}</text>
+				<text style="line-height: 50px; margin-left: 2vw; width: 40vw;">{{item.profile.nickName}}</text>
 				<u-button plain="true" ripple-bg-color="#e31a1a" ripple="true" style="color: #894242; border: 2px solid #894242;" @click="disSubscribe(item.user.id)">取消关注</u-button>
 			</view>
 			<u-line color="grey" style="margin-top: 1.1vh; "/>
